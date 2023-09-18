@@ -1,11 +1,14 @@
+import { MouseEventHandler } from 'react';
 
 interface ISquare {
-    value: string,
-    onSquareClick: React.MouseEventHandler<HTMLButtonElement> | undefined
+    value: string | string[];
+    onSquareClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const Square = ({value, onSquareClick} : ISquare) => {
+export const Square = ({ value, onSquareClick }: ISquare) => {
     return (
-        <button className="square" onClick={onSquareClick}>{value}</button>
-    )
-}
+        <button className="square" onClick={onSquareClick}>
+            {value}
+        </button>
+    );
+};
