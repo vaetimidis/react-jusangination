@@ -1,5 +1,8 @@
+import { Game } from './components/Game/Game';
+import './style.scss';
+
 function App() {
-    return <div>ggd</div>;
+    return <Game />;
 }
 
 export default App;
