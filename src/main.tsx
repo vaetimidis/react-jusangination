@@ -2,16 +2,23 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ErrorPage from './routes/404.tsx';
+import { Game } from './components/Game/Game.tsx';
+import { TodoList } from './components/TodoList/TodoList.tsx';
 
 const router = createBrowserRouter([
     {
         path: '/game',
-        element: <App />,
+        element: <Game />,
         errorElement: <ErrorPage />,
     },
     {
         path: '/',
-        element: <div>ggd</div>,
+        element: <App />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: '/tasks',
+        element: <TodoList />,
         errorElement: <ErrorPage />,
     },
 ]);
