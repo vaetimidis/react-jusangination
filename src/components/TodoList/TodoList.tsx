@@ -1,4 +1,28 @@
+import axios from 'axios';
 import './style.scss';
+
+interface ITasks {
+    id: 'string';
+    text: 'string';
+    isDone: boolean;
+}
+
+interface IResp {
+    todo: ITasks[];
+}
+
+let todosArr: ITasks[];
+
+const getTasks = async (): Promise<ITasks[]> => {
+    const url = 'http://localhost:8080/tasks';
+    const response = await axios.get<IResp>(url);
+    return response.data.todo;
+};
+
+getTasks().then((resp) => {
+    todosArr = resp;
+    console.log(todosArr);
+});
 
 export const TodoList = () => {
     return (
@@ -11,17 +35,16 @@ export const TodoList = () => {
                 <div className="task-wrapper__section">
                     <div className="tasks--uncompleted">
                         <ul className="tasks__list">
-                            <li className="tasks__item">go home</li>
-                            <li className="tasks__item">buy burgers</li>
-                            <li className="tasks__item">brush teeth</li>
+                            {todosArr.map((task: ITasks) =>
+                                !task.isDone ? <li className="tasks__item">{task.text}</li> : ''
+                            )}
                         </ul>
                     </div>
                     <div className="tasks--completed">
                         <ul className="tasks__list">
-                            <li className="tasks__item">wake up</li>
-                            <li className="tasks__item">eat breakfast</li>
-                            <li className="tasks__item">wash your head</li>
-                            <li className="tasks__item">start working</li>
+                            {todosArr.map((task: ITasks) =>
+                                task.isDone ? <li className="tasks__item">{task.text}</li> : ''
+                            )}
                         </ul>
                     </div>
                 </div>
