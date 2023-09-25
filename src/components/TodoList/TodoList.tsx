@@ -3,8 +3,8 @@ import './style.scss';
 import { useEffect, useState } from 'react';
 
 interface ITasks {
-    id: 'string';
-    text: 'string';
+    id: string;
+    text: string;
     isDone: boolean;
 }
 
@@ -14,12 +14,12 @@ interface IResp {
 
 const getTasks = async (): Promise<ITasks[]> => {
     const url = 'http://localhost:8080/tasks';
-    const response = await axios.get<IResp>(url);
-    return response.data.tasks;
+    const { data } = await axios.get<IResp>(url);
+    return data.tasks;
 };
 
 export const TodoList = () => {
-    const [tasks, setTasks] = useState<ITasks[] | []>([]);
+    const [tasks, setTasks] = useState<ITasks[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -29,41 +29,39 @@ export const TodoList = () => {
     }, []);
 
     return (
-        <>
-            <div className="task-wrapper">
-                <div className="task-wrapper__headline">
-                    <input type="text" className="add-task" />
-                    <button className="confirm-task">confirm</button>
-                </div>
-                <div className="task-wrapper__section">
-                    <div className="tasks--uncompleted">
-                        <ul className="tasks__list">
-                            {tasks.map((task: ITasks) => {
-                                return !task.isDone ? (
+        <div className="task-wrapper">
+            <div className="task-wrapper__headline">
+                <input type="text" className="add-task" />
+                <button className="confirm-task">confirm</button>
+            </div>
+            <div className="task-wrapper__section">
+                <div className="tasks--uncompleted">
+                    <ul className="tasks__list">
+                        {tasks.map((task: ITasks) => {
+                            return (
+                                !task.isDone && (
                                     <li key={task.id} className="tasks__item uncompleted">
                                         {task.text}
                                     </li>
-                                ) : (
-                                    ''
-                                );
-                            })}
-                        </ul>
-                    </div>
-                    <div className="tasks--completed">
-                        <ul className="tasks__list">
-                            {tasks.map((task: ITasks) => {
-                                return task.isDone ? (
+                                )
+                            );
+                        })}
+                    </ul>
+                </div>
+                <div className="tasks--completed">
+                    <ul className="tasks__list">
+                        {tasks.map((task: ITasks) => {
+                            return (
+                                task.isDone && (
                                     <li key={task.id} className="tasks__item completed">
                                         {task.text}
                                     </li>
-                                ) : (
-                                    ''
-                                );
-                            })}
-                        </ul>
-                    </div>
+                                )
+                            );
+                        })}
+                    </ul>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
