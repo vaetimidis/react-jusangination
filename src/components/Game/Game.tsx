@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Board } from '../Board/Board';
+import { Board } from './Board/Board';
+import './style.scss';
 
 export const Game = () => {
     const [history, setHistory] = useState<string[][]>([Array(9).fill(null)]);
