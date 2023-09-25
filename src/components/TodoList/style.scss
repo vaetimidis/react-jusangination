@@ -56,6 +56,15 @@
         min-width: 200px;
         padding: 10px;
         border: 0.5px solid #000;
+        border-radius: 15px;
         margin: 0 0 10px 0;
     }
+}
+
+.uncompleted {
+    cursor: pointer;
+}
+
+.completed {
+    text-decoration: line-through;
 }
