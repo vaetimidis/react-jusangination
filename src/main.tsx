@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ErrorPage from './routes/404.tsx';
 import { Game } from './components/Game/Game.tsx';
 import { TodoList } from './components/TodoList/TodoList.tsx';
+import { Layout } from './components/layouts/Layout.tsx';
 
 const router = createBrowserRouter([
     {
@@ -23,4 +24,8 @@ const router = createBrowserRouter([
     },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />);
+ReactDOM.createRoot(document.getElementById('root')!).render(
+    <Layout>
+        <RouterProvider router={router} />
+    </Layout>
+);
