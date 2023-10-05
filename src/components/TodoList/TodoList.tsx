@@ -31,7 +31,7 @@ export const TodoList = () => {
 
     return (
         <div className="task-wrapper">
-            <TaskFormCreate setTasks={setTasks} />
+            <TaskFormCreate setTasks={setTasks} tasks={tasks} />
             <div className="task-wrapper__section">
                 <div className="tasks--uncompleted">
                     <ul className="tasks__list">
