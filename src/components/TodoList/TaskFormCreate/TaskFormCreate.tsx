@@ -4,7 +4,6 @@ import { ITask } from '../TodoList';
 
 interface ITaskState {
     addTask: (task: ITask) => void;
-    tasks: ITask[];
 }
 export const TaskFormCreate = ({ addTask }: ITaskState) => {
     const [text, setText] = useState<string>('');
