@@ -1,25 +1,29 @@
 import axios from 'axios';
 import './style.scss';
 import { useEffect, useState } from 'react';
+import { TaskFormCreate } from './TaskFormCreate/TaskFormCreate';
 
-interface ITasks {
+export interface ITask {
     id: string;
     text: string;
     isDone: boolean;
 }
 
-interface IResp {
-    tasks: ITasks[];
+export interface IResp {
+    tasks: ITask[];
 }
 
-const getTasks = async (): Promise<ITasks[]> => {
-    const url = 'http://localhost:8080/tasks';
-    const { data } = await axios.get<IResp>(url);
+const getTasks = async (): Promise<ITask[]> => {
+    const { data } = await axios.get<IResp>(`${import.meta.env.VITE_URL}/tasks`);
     return data.tasks;
 };
 
 export const TodoList = () => {
-    const [tasks, setTasks] = useState<ITasks[]>([]);
+    const [tasks, setTasks] = useState<ITask[]>([]);
+
+    const addTask = (task: ITask) => {
+        setTasks([...tasks, task]);
+    };
 
     useEffect(() => {
         (async () => {
@@ -30,14 +34,11 @@ export const TodoList = () => {
 
     return (
         <div className="task-wrapper">
-            <div className="task-wrapper__headline">
-                <input type="text" className="add-task" />
-                <button className="confirm-task">confirm</button>
-            </div>
+            <TaskFormCreate addTask={addTask} />
             <div className="task-wrapper__section">
                 <div className="tasks--uncompleted">
                     <ul className="tasks__list">
-                        {tasks.map((task: ITasks) => {
+                        {tasks.map((task: ITask) => {
                             return (
                                 !task.isDone && (
                                     <li key={task.id} className="tasks__item uncompleted">
@@ -50,7 +51,7 @@ export const TodoList = () => {
                 </div>
                 <div className="tasks--completed">
                     <ul className="tasks__list">
-                        {tasks.map((task: ITasks) => {
+                        {tasks.map((task: ITask) => {
                             return (
                                 task.isDone && (
                                     <li key={task.id} className="tasks__item completed">
