@@ -1,7 +1,7 @@
 import axios from 'axios';
 import './style.scss';
 import { useEffect, useState } from 'react';
-import { Input } from './Input/Input';
+import { TaskFormCreate } from './Input/TaskFormCreate';
 
 export interface ITasks {
     id: string;
@@ -31,7 +31,7 @@ export const TodoList = () => {
 
     return (
         <div className="task-wrapper">
-            <Input setTasks={setTasks} />
+            <TaskFormCreate setTasks={setTasks} />
             <div className="task-wrapper__section">
                 <div className="tasks--uncompleted">
                     <ul className="tasks__list">

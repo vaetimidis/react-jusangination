@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { ITasks } from '../TodoList';
 
-export const Input = ({ setTasks }: { setTasks: Dispatch<SetStateAction<ITasks[]>> }) => {
+export const TaskFormCreate = ({ setTasks }: { setTasks: Dispatch<SetStateAction<ITasks[]>> }) => {
     const [text, setText] = useState<string>('');
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
