@@ -1,14 +1,12 @@
 import axios from 'axios';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-import { ITasks } from '../TodoList';
+import { ChangeEvent, useState } from 'react';
+import { ITask } from '../TodoList';
 
-export const TaskFormCreate = ({
-    setTasks,
-    tasks,
-}: {
-    setTasks: Dispatch<SetStateAction<ITasks[]>>;
-    tasks: ITasks[];
-}) => {
+interface ITaskState {
+    addTask: (task: ITask) => void;
+    tasks: ITask[];
+}
+export const TaskFormCreate = ({ addTask }: ITaskState) => {
     const [text, setText] = useState<string>('');
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -16,12 +14,9 @@ export const TaskFormCreate = ({
     };
 
     const handleNewTask = async (text: string) => {
-        const url = 'http://localhost:8080/task';
-        const response = await axios.post(url, { text });
+        const response = await axios.post<ITask>(`${import.meta.env.VITE_URL}/task`, { text });
 
-        const newTasks = [...tasks, response.data];
-
-        setTasks(newTasks);
+        addTask(response.data);
 
         setText('');
     };

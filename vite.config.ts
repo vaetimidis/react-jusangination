@@ -1,7 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { type UserConfig, defineConfig, loadEnv } from 'vite';
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-})
+export default defineConfig(async ({ mode }): Promise<UserConfig> => {
+    process.env = {
+        ...process.env,
+        ...loadEnv(mode, process.cwd()),
+    };
+
+    const config: UserConfig = { define: { 'process.env': {} } };
+
+    return config;
+});
