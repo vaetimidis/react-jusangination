@@ -1,6 +1,6 @@
 import axios from 'axios';
 import './style.scss';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 interface ITasks {
     id: string;
@@ -20,6 +20,7 @@ const getTasks = async (): Promise<ITasks[]> => {
 
 export const TodoList = () => {
     const [tasks, setTasks] = useState<ITasks[]>([]);
+    const [text, setText] = useState<string>('');
 
     useEffect(() => {
         (async () => {
@@ -28,11 +29,24 @@ export const TodoList = () => {
         })();
     }, []);
 
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setText(event.target.value);
+    };
+
+    const handleNewTask = async (text: string) => {
+        const url = 'http://localhost:8080/task';
+        const response = await axios.post(url, { text });
+
+        setTasks(response.data);
+    };
+
     return (
         <div className="task-wrapper">
             <div className="task-wrapper__headline">
-                <input type="text" className="add-task" />
-                <button className="confirm-task">confirm</button>
+                <input type="text" className="add-task" id="task" onChange={handleChange} />
+                <button className="confirm-task" onClick={() => handleNewTask(text)}>
+                    confirm
+                </button>
             </div>
             <div className="task-wrapper__section">
                 <div className="tasks--uncompleted">
