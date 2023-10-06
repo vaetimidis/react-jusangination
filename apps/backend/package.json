@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "back",
+  "description": "back",
+  "version": "1.0.0",
+  "source": "src/index.ts",
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "backend"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.x",
+    "pnpm": ">=8.x",
+    "bun": ">=1.x"
+  },
+  "scripts": {
+    "dev": "tsnd --respawn --pretty --transpile-only -r tsconfig-paths/register src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "------------------------------------------------------------------------------------------------------------": "",
+    "lint": "eslint --fix \"./**/*.{ts,tsx}\"",
+    "format": "prettier -w \"./**/*.{ts,tsx,json,scss,md}\"",
+    "--------------------------------------------------------------------------------------------------------------": ""
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.3",
+    "@types/node": "^20.6.2",
+    "@types/uuid": "^9.0.4",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.2.2"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "eslint --fix",
+    "*": "prettier -w -u"
+  }
+}
