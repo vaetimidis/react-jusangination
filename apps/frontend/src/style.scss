@@ -1,27 +1,29 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: 'Roboto';
+  font-family: 'Roboto';
 }
 
 input,
 button {
-    all: unset;
+  all: unset;
 }
 
 .wrapper {
-    margin: 20px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    overflow: hidden;
+  margin: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  overflow: hidden;
 
-    &__list {
-        list-style-type: none;
-    }
+  &__list {
+    list-style-type: none;
+  }
 }
