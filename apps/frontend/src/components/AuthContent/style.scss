@@ -1,0 +1,58 @@
+.auth-wrapper {
+  width: 500px;
+  height: 500px;
+  position: relative;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: space-around;
+
+  z-index: 1;
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+  }
+
+  &__btns {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    align-items: center;
+    justify-content: space-evenly;
+  }
+}
+
+.auth-login,
+.auth-password {
+  border: 0.5px solid black;
+  border-radius: 15px;
+  min-width: 300px;
+  margin: 0 0 20px 0;
+  padding: 10px;
+}
+
+.auth-signin,
+.auth-signup {
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: blue;
+  color: white;
+}
+
+.close-modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  cursor: pointer;
+
+  padding: 10px 20px 0 0;
+}
