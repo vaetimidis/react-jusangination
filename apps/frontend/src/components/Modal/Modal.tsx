@@ -10,5 +10,7 @@ interface IModalProps {
 }
 
 export const Modal: FC<IModalProps> = ({ children, isOpen }) => {
-  return createPortal(isOpen && <div className="modal-wrapper">{children}</div>, document.body);
+  return !isOpen
+    ? null
+    : createPortal(<div className="modal-wrapper">{children}</div>, document.body);
 };
