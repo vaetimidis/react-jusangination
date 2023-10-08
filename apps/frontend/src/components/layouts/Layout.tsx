@@ -18,11 +18,11 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
         <button className="layout-header__button" onClick={handleOpen}>
           SIGN IN
         </button>
-        {isOpen && (
-          <Modal>
+        {
+          <Modal isOpen={isOpen}>
             <AuthContent handleOpen={handleOpen} />
           </Modal>
-        )}
+        }
       </header>
       {children}
     </div>
