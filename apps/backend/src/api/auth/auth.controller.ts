@@ -1,9 +1,12 @@
+import fs from 'fs';
+
+import { Router } from 'express';
+import jwt from 'jsonwebtoken';
+import { v4 as uuid } from 'uuid';
+
 import type { AuthenticatedRequest, IUser } from '#/types/index';
 import type { Request, Response } from 'express';
-import { Router } from 'express';
-import { v4 as uuid } from 'uuid';
-import jwt from 'jsonwebtoken';
-import fs from 'fs';
+
 import { authenticateToken } from '#/middleware/authenticateToken';
 import { DB_FILE, SECRET_KEY } from '#/server';
 
