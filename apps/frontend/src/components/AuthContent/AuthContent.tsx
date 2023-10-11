@@ -1,10 +1,13 @@
+import './style.scss';
+
 import type { FC } from 'react';
-import type { FormikHelpers } from 'formik';
 import React from 'react';
+
+import axios from 'axios';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import './style.scss';
-import axios from 'axios';
+
+import type { FormikHelpers } from 'formik';
 
 interface IFormProps {
   login: string;

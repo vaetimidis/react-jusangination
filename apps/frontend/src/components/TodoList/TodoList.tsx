@@ -1,9 +1,10 @@
-import { TaskFormCreate } from './TaskFormCreate/TaskFormCreate';
+import './style.scss';
+
+import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
-import './style.scss';
-import { useEffect, useState } from 'react';
-import React from 'react';
+
+import { TaskFormCreate } from './TaskFormCreate/TaskFormCreate';
 
 export interface ITask {
   id: string;

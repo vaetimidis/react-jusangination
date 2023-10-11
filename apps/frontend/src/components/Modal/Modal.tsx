@@ -1,7 +1,8 @@
+import './style.scss';
+
 import type { FC } from 'react';
 import React from 'react';
 
-import './style.scss';
 import { createPortal } from 'react-dom';
 
 interface IModalProps {
