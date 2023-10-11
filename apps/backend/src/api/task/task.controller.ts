@@ -1,10 +1,13 @@
-import type { Request, Response } from 'express';
-import type { ITask } from '#/types/index';
+import fs from 'fs';
+
 import { Router } from 'express';
 import { v4 as uuid } from 'uuid';
-import fs from 'fs';
-import { DB_FILE } from '#/server';
+
+import type { ITask } from '#/types/index';
+import type { Request, Response } from 'express';
+
 import { authenticateToken } from '#/middleware/authenticateToken';
+import { DB_FILE } from '#/server';
 
 export const taskRouter = Router();
 

@@ -8,7 +8,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module'
   },
-  plugins: ['@typescript-eslint', 'import'],
+  plugins: ['@typescript-eslint', 'import', 'prettier'],
   rules: {
     'no-console': 'off',
     'spaced-comment': 'off',
@@ -23,11 +23,39 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-use-before-define': 'off',
     'no-underscore-dangle': 'off',
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-duplicates': 'error',
+
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        trailingComma: 'none',
+        printWidth: 100,
+        tabWidth: 2,
+        semi: true,
+        bracketSameLine: true,
+        endOfLine: 'auto'
+      }
+    ],
 
     'import/order': [
       'error',
       {
-        groups: ['type', 'index', 'sibling', 'parent', 'internal', 'external', 'builtin', 'object']
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
+        pathGroups: [
+          {
+            pattern: '{react,react-router-dom,react-dom/**}',
+            group: 'external',
+            position: 'before'
+          }
+        ],
+        pathGroupsExcludedImportTypes: ['builtin'],
+        alphabetize: {
+          order: 'asc'
+        },
+        'newlines-between': 'always'
       }
     ],
     'import/extensions': [

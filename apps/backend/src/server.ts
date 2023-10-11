@@ -1,8 +1,9 @@
-import { print } from './utils/print-route';
-import { allowCrossDomain } from './utils/allow-cross-domain';
+import express from 'express';
+
 import { authRouter } from './api/auth/auth.controller';
 import { taskRouter } from './api/task/task.controller';
-import express from 'express';
+import { allowCrossDomain } from './utils/allow-cross-domain';
+import { print } from './utils/print-route';
 
 const PORT = 8080;
 export const SECRET_KEY = 'SECRET_KEY';
