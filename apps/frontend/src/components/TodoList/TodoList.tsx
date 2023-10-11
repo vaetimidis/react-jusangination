@@ -1,4 +1,5 @@
 import { TaskFormCreate } from './TaskFormCreate/TaskFormCreate';
+import { FcCheckmark, FcDislike } from 'react-icons/fc';
 
 import axios from 'axios';
 import './style.scss';
@@ -43,8 +44,9 @@ export const TodoList = () => {
             {tasks.map((task: ITask) => {
               return (
                 !task.isDone && (
-                  <li key={task.id} className="tasks__item uncompleted">
-                    {task.text}
+                  <li key={task.id} id={task.id} className="tasks__item uncompleted">
+                    <div>{task.text}</div>
+                    <FcCheckmark />
                   </li>
                 )
               );
@@ -58,6 +60,7 @@ export const TodoList = () => {
                 task.isDone && (
                   <li key={task.id} className="tasks__item completed">
                     {task.text}
+                    <FcDislike />
                   </li>
                 )
               );

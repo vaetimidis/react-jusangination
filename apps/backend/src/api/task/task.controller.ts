@@ -4,7 +4,7 @@ import { Router } from 'express';
 import { v4 as uuid } from 'uuid';
 import fs from 'fs';
 import { DB_FILE } from '#/server';
-import { authenticateToken } from '#/middleware/authenticateToken';
+// import { authenticateToken } from '#/middleware/authenticateToken';
 
 export const taskRouter = Router();
 
@@ -33,6 +33,28 @@ taskRouter.post('/task', async (req: Request, res: Response): Promise<void> => {
     res.status(200).json(newTodo);
   } catch (error) {
     console.error('Error during creating new todo:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+taskRouter.post('/change-task-state', async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.body;
+
+  if (!id) {
+    res.status(400).json({ message: 'Couldnt find id' });
+    return;
+  }
+
+  try {
+    const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf-8'));
+
+    const currentTask = db.tasks.find((t: ITask) => t.id === id);
+
+    currentTask.isDone = !currentTask.isDone;
+
+    console.log(currentTask);
+  } catch (error) {
+    console.error('Error during changing task state: ', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
