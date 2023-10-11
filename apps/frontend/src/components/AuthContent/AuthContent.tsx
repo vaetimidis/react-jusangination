@@ -11,6 +11,10 @@ interface IFormProps {
   password: string;
 }
 
+interface IProps {
+  handleOpen: () => void;
+}
+
 interface IAuthResponse {
   statusText: string;
 }
@@ -20,7 +24,7 @@ const SigninSchema = Yup.object().shape({
   password: Yup.string().min(2, 'Too short password').required('required')
 });
 
-export const AuthContent: FC<{ handleOpen: () => void }> = (props) => {
+export const AuthContent: FC<IProps> = (props) => {
   const { handleOpen } = props;
 
   const submitForm = async (values: IFormProps, { setSubmitting }: FormikHelpers<IFormProps>) => {
