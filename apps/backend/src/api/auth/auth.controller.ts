@@ -11,10 +11,10 @@ export const authRouter = Router();
 
 // Обработчик для регистрации нового пользователя
 authRouter.post('/sign-up', async (req: Request, res: Response): Promise<void> => {
-  const { username, password } = req.body;
+  const { login, password } = req.body;
 
   // Проверяем, что оба поля заполнены
-  if (!username || !password) {
+  if (!login || !password) {
     res.status(400).json({ message: 'Username and password are required' });
     return;
   }
@@ -23,7 +23,7 @@ authRouter.post('/sign-up', async (req: Request, res: Response): Promise<void> =
   const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
 
   // Проверяем, что пользователь с таким именем не существует
-  if (db.users.find((user: IUser) => user.username === username)) {
+  if (db.users.find((user: IUser) => user.login === login)) {
     res.status(400).json({ message: 'Username already exists' });
     return;
   }
@@ -33,7 +33,7 @@ authRouter.post('/sign-up', async (req: Request, res: Response): Promise<void> =
     // TODO
 
     // Создаем нового пользователя
-    const newUser = { id: uuid(), username, password };
+    const newUser = { id: uuid(), login, password };
 
     // Добавляем пользователя в базу данных
     db.users.push(newUser);

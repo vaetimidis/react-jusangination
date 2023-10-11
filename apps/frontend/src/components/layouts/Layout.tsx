@@ -16,7 +16,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
     <div className="layout-wrapper">
       <header className="layout-header">
         <button className="layout-header__button" onClick={handleOpen}>
-          SIGN IN
+          Sign up
         </button>
         <Modal isOpen={isOpen}>
           <AuthContent handleOpen={handleOpen} />
