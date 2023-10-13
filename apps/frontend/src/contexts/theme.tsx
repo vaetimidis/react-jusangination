@@ -11,7 +11,7 @@ export enum Theme {
 
 interface IThemeProps {
   theme: Theme | string;
-  swithTheme: () => void;
+  switchTheme: () => void;
 }
 
 const ThemeContext = createContext<IThemeProps | null>(null);
@@ -21,7 +21,7 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const [theme, setTheme] = useState<Theme>(savedTheme);
 
-  const swithTheme = () => {
+  const switchTheme = () => {
     const value = theme === Theme.Light ? Theme.Dark : Theme.Light;
 
     localStorage.setItem(THEME_KEY, value);
@@ -31,7 +31,7 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
     setTheme(value);
   };
 
-  return <ThemeContext.Provider value={{ theme, swithTheme }}>{children}</ThemeContext.Provider>;
+  return <ThemeContext.Provider value={{ theme, switchTheme }}>{children}</ThemeContext.Provider>;
 };
 
 export const useTheme = (): IThemeProps => {

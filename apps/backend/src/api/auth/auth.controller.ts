@@ -4,7 +4,7 @@ import { Router } from 'express';
 import jwt from 'jsonwebtoken';
 import { v4 as uuid } from 'uuid';
 
-import type { AuthenticatedRequest, IUser } from '#/types/index';
+import type { AuthenticatedRequest, IDatabase, IUser } from '#/types/index';
 import type { Request, Response } from 'express';
 
 import { authenticateToken } from '#/middleware/authenticateToken';
@@ -14,19 +14,19 @@ export const authRouter = Router();
 
 // Обработчик для регистрации нового пользователя
 authRouter.post('/sign-up', async (req: Request, res: Response): Promise<void> => {
-  const { login, password } = req.body;
+  const { username, password } = req.body;
 
   // Проверяем, что оба поля заполнены
-  if (!login || !password) {
+  if (!username || !password) {
     res.status(400).json({ message: 'Username and password are required' });
     return;
   }
 
   // Читаем данные из файла
-  const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+  const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8')) as IDatabase;
 
   // Проверяем, что пользователь с таким именем не существует
-  if (db.users.find((user: IUser) => user.login === login)) {
+  if (db.users.find((user: IUser) => user.username === username)) {
     res.status(400).json({ message: 'Username already exists' });
     return;
   }
@@ -36,7 +36,7 @@ authRouter.post('/sign-up', async (req: Request, res: Response): Promise<void> =
     // TODO
 
     // Создаем нового пользователя
-    const newUser = { id: uuid(), login, password };
+    const newUser = { id: uuid(), username, password };
 
     // Добавляем пользователя в базу данных
     db.users.push(newUser);
@@ -56,7 +56,7 @@ authRouter.get('/me', authenticateToken, (req: AuthenticatedRequest, res: Respon
   const { id } = req.user as IUser;
 
   // Читаем данные из файла
-  const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+  const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8')) as IDatabase;
 
   // Ищем пользователя с указанным именем
   const user = db.users.find((u: IUser) => u.id === id);
@@ -89,7 +89,7 @@ authRouter.post('/sign-in', async (req: Request, res: Response): Promise<void> =
   }
 
   // Читаем данные из файла
-  const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+  const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8')) as IDatabase;
 
   // Ищем пользователя с указанным именем
   const user = db.users.find((u: IUser) => u.username === username);
@@ -113,7 +113,7 @@ authRouter.post('/sign-in', async (req: Request, res: Response): Promise<void> =
 
     res.json({ token, user });
   } catch (error) {
-    console.error('Error during login:', error);
+    console.error('Error during username:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });

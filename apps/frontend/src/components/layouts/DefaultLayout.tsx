@@ -1,3 +1,5 @@
+import './style.scss';
+
 import type { FC, PropsWithChildren } from 'react';
 import { useState } from 'react';
 
@@ -7,8 +9,6 @@ import { AuthContent } from '#/components/AuthContent/AuthContent';
 import { Modal } from '#/components/Modal/Modal';
 import useTheme, { Theme } from '#/contexts/theme';
 
-import './style.scss';
-
 export const DefaultLayout: FC<PropsWithChildren> = ({ children }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -16,12 +16,12 @@ export const DefaultLayout: FC<PropsWithChildren> = ({ children }) => {
     setOpen(!isOpen);
   };
 
-  const { theme, swithTheme } = useTheme();
+  const { theme, switchTheme } = useTheme();
 
   return (
     <div className="layout-wrapper">
       <header className="layout-header">
-        <button className="toggle-theme" onClick={swithTheme}>
+        <button className="toggle-theme" onClick={switchTheme}>
           {theme === Theme.Light ? <FcFlashOff /> : <FcFlashOn />}
         </button>
 

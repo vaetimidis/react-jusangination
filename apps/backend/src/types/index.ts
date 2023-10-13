@@ -1,13 +1,18 @@
 import type { Request } from 'express';
 
+export interface IDatabase {
+  users: IUser[];
+  tasks: ITask[];
+}
+
 export interface IUser {
   id: string;
-  login: string;
+  username: string;
   password: string;
 }
 
 export interface ITask {
-  id: number;
+  id: string;
   text: string;
   isDone: boolean;
 }
