@@ -38,6 +38,11 @@
 
 html {
   font-family: 'Roboto';
+  color: var(--text-primary);
+}
+
+#root {
+  background-color: var(--bg-primary);
 }
 
 input,

@@ -2,6 +2,7 @@ import type { FC, PropsWithChildren } from 'react';
 import React, { createContext, useContext, useState } from 'react';
 
 const THEME_KEY = '__THEME__';
+const HTML = document.querySelector('html');
 
 enum Theme {
   Light = 'light',
@@ -24,7 +25,13 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
     const value = theme === Theme.Light ? Theme.Dark : Theme.Light;
 
     localStorage.setItem(THEME_KEY, value);
-    document.body.setAttribute('data-theme', value);
+
+    // if (value === Theme.Light) {
+    //   console.log('light');
+    // } else {
+    //   console.log('dark');
+    // }
+    value === Theme.Light ? HTML?.classList.add('dark') : HTML?.classList.remove('dark');
 
     setTheme(value);
   };

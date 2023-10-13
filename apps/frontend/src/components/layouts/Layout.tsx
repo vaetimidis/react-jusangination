@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { FcFlashOn, FcFlashOff } from 'react-icons/fc';
 
-import useTheme, { ThemeProvider } from '../../contexts/theme';
+import useTheme from '../../contexts/theme';
 import { AuthContent } from '../AuthContent/AuthContent';
 import { Modal } from '../Modal/Modal';
 
@@ -22,7 +22,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
     <div className="layout-wrapper">
       <header className="layout-header">
         <button className="toggle-theme" onClick={swithTheme}>
-          {theme === 'light' ? <FcFlashOn /> : <FcFlashOff />}
+          {theme === 'light' ? <FcFlashOff /> : <FcFlashOn />}
         </button>
 
         <button className="layout-header__button" onClick={handleOpen}>
