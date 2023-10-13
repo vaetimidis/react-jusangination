@@ -16,7 +16,7 @@ export const TaskFormCreate = ({ addTask }: ITaskState) => {
   };
 
   const handleNewTask = async (text: string) => {
-    const response = await axios.post<ITask>(`${import.meta.env.VITE_URL}/task`, {
+    const response = await axios.post<ITask>(`${import.meta.env.VITE_API_URL}/task`, {
       text
     });
 

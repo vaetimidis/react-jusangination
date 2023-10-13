@@ -7,7 +7,7 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 interface IFormProps {
-  login: string;
+  username: string;
   password: string;
 }
 
@@ -20,7 +20,7 @@ interface IAuthResponse {
 }
 
 const SigninSchema = Yup.object().shape({
-  login: Yup.string().min(2, 'Too short login').required('required'),
+  username: Yup.string().min(2, 'Too short username').required('required'),
   password: Yup.string().min(2, 'Too short password').required('required')
 });
 
@@ -28,7 +28,10 @@ export const AuthContent: FC<IProps> = (props) => {
   const { handleOpen } = props;
 
   const submitForm = async (values: IFormProps) => {
-    const response = await axios.post<IAuthResponse>(`${import.meta.env.VITE_URL}/sign-up`, values);
+    const response = await axios.post<IAuthResponse>(
+      `${import.meta.env.VITE_API_URL}/sign-up`,
+      values
+    );
 
     if (response.statusText === 'OK') {
       alert('successful');
@@ -37,7 +40,7 @@ export const AuthContent: FC<IProps> = (props) => {
 
   return (
     <Formik
-      initialValues={{ login: '', password: '' }}
+      initialValues={{ username: '', password: '' }}
       validationSchema={SigninSchema}
       onSubmit={submitForm}>
       {({ errors }) => (
@@ -48,9 +51,9 @@ export const AuthContent: FC<IProps> = (props) => {
 
           <div className="auth-wrapper__inputs">
             <div className="auth-wrapper__input">
-              <label htmlFor="login">LOGIN</label>
-              <Field className="auth-login" id="login" name="login" />
-              {errors.login ? <div className="input-error">{errors.login}</div> : null}
+              <label htmlFor="username">USERNAME</label>
+              <Field className="username" id="username" name="username" />
+              {errors.username ? <div className="input-error">{errors.username}</div> : null}
             </div>
 
             <div className="auth-wrapper__input">

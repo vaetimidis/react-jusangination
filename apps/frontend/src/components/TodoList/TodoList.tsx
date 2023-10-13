@@ -17,7 +17,7 @@ export interface IResp {
 }
 
 const getTasks = async (): Promise<ITask[]> => {
-  const { data } = await axios.get<IResp>(`${import.meta.env.VITE_URL}/tasks`);
+  const { data } = await axios.get<IResp>(`${import.meta.env.VITE_API_URL}/tasks`);
   return data.tasks;
 };
 
