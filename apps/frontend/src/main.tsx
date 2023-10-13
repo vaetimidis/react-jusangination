@@ -1,4 +1,6 @@
+/* eslint-disable import/extensions */
 import ReactDOM from 'react-dom/client';
+import '#/assets/scss/global.scss';
 
 import App from './pages/App';
 

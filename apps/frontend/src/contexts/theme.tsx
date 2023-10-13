@@ -26,7 +26,7 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
 
     localStorage.setItem(THEME_KEY, value);
 
-    value === Theme.Light ? HTML?.classList.add('dark') : HTML?.classList.remove('dark');
+    HTML?.classList.replace(value, value === Theme.Light ? Theme.Dark : Theme.Light);
 
     setTheme(value);
   };
