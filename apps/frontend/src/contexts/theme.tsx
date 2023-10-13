@@ -1,10 +1,10 @@
 import type { FC, PropsWithChildren } from 'react';
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const THEME_KEY = '__THEME__';
 const HTML = document.querySelector('html');
 
-enum Theme {
+export enum Theme {
   Light = 'light',
   Dark = 'dark'
 }
@@ -17,20 +17,15 @@ interface IThemeProps {
 const ThemeContext = createContext<IThemeProps | null>(null);
 
 export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme | string>(
-    localStorage.getItem(THEME_KEY) || Theme.Light
-  );
+  const savedTheme = (localStorage.getItem(THEME_KEY) as Theme) ?? Theme.Light;
+
+  const [theme, setTheme] = useState<Theme>(savedTheme);
 
   const swithTheme = () => {
     const value = theme === Theme.Light ? Theme.Dark : Theme.Light;
 
     localStorage.setItem(THEME_KEY, value);
 
-    // if (value === Theme.Light) {
-    //   console.log('light');
-    // } else {
-    //   console.log('dark');
-    // }
     value === Theme.Light ? HTML?.classList.add('dark') : HTML?.classList.remove('dark');
 
     setTheme(value);

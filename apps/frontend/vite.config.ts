@@ -1,12 +1,18 @@
-import { type UserConfig, defineConfig, loadEnv } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-export default defineConfig(async ({ mode }): Promise<UserConfig> => {
-  process.env = {
-    ...process.env,
-    ...loadEnv(mode, process.cwd())
-  };
+import { fileURLToPath } from 'node:url';
 
-  const config: UserConfig = { define: { 'process.env': {} }, plugins: [react()] };
+import react from '@vitejs/plugin-react-swc';
+import { type UserConfig, defineConfig } from 'vite';
+
+export default defineConfig(async (): Promise<UserConfig> => {
+  const config: UserConfig = {
+    plugins: [react()],
+    resolve: {
+      alias: {
+        '#': fileURLToPath(new URL('./src', import.meta.url))
+      },
+      extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx']
+    }
+  };
 
   return config;
 });

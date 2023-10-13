@@ -1,12 +1,8 @@
-// import { Game } from './components/Game/Game';
-// eslint-disable-next-line import/order
-import React from 'react';
-
 import './assets/scss/global.scss';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { TodoList } from './components/TodoList/TodoList';
-import { Layout } from './components/layouts/Layout';
+import { DefaultLayout } from './components/layouts/DefaultLayout';
 import { ThemeProvider } from './contexts/theme';
 import ErrorPage from './routes/404';
 
@@ -26,9 +22,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ThemeProvider>
-      <Layout>
+      <DefaultLayout>
         <RouterProvider router={router} />
-      </Layout>
+      </DefaultLayout>
     </ThemeProvider>
   );
 }
