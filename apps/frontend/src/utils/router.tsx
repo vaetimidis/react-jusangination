@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { TodoList } from '#/components/TodoList/TodoList';
-import ErrorPage from '#/routes/404';
+import ErrorPage from '#/pages/404';
 
 enum AppRoutes {
   HOME = '/',
