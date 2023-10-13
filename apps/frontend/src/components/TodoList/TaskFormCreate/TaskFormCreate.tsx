@@ -1,8 +1,9 @@
-import type { ITask } from '../TodoList';
 import type { ChangeEvent } from 'react';
-import axios from 'axios';
 import { useState } from 'react';
-import React from 'react';
+
+import axios from 'axios';
+
+import type { ITask } from '../TodoList';
 
 interface ITaskState {
   addTask: (task: ITask) => void;

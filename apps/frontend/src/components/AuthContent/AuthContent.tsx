@@ -1,13 +1,10 @@
 import './style.scss';
 
 import type { FC } from 'react';
-import React from 'react';
 
 import axios from 'axios';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-
-import type { FormikHelpers } from 'formik';
 
 interface IFormProps {
   login: string;
@@ -30,7 +27,7 @@ const SigninSchema = Yup.object().shape({
 export const AuthContent: FC<IProps> = (props) => {
   const { handleOpen } = props;
 
-  const submitForm = async (values: IFormProps, { setSubmitting }: FormikHelpers<IFormProps>) => {
+  const submitForm = async (values: IFormProps) => {
     const response = await axios.post<IAuthResponse>(`${import.meta.env.VITE_URL}/sign-up`, values);
 
     if (response.statusText === 'OK') {

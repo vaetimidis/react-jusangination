@@ -1,20 +1,30 @@
 import type { FC, PropsWithChildren } from 'react';
-import { Modal } from '../Modal/Modal';
-import { AuthContent } from '../AuthContent/AuthContent';
+import { useState } from 'react';
+
+import { FcFlashOn, FcFlashOff } from 'react-icons/fc';
+
+import { AuthContent } from '#/components/AuthContent/AuthContent';
+import { Modal } from '#/components/Modal/Modal';
+import useTheme, { Theme } from '#/contexts/theme';
 
 import './style.scss';
-import React, { useState } from 'react';
 
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
+export const DefaultLayout: FC<PropsWithChildren> = ({ children }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const handleOpen = () => {
     setOpen(!isOpen);
   };
 
+  const { theme, swithTheme } = useTheme();
+
   return (
     <div className="layout-wrapper">
       <header className="layout-header">
+        <button className="toggle-theme" onClick={swithTheme}>
+          {theme === Theme.Light ? <FcFlashOff /> : <FcFlashOn />}
+        </button>
+
         <button className="layout-header__button" onClick={handleOpen}>
           Sign up
         </button>
