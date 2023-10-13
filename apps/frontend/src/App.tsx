@@ -6,14 +6,19 @@ import { DefaultLayout } from './components/layouts/DefaultLayout';
 import { ThemeProvider } from './contexts/theme';
 import ErrorPage from './routes/404';
 
+enum AppRoutes {
+  HOME = '/',
+  TASKS = '/tasks'
+}
+
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: AppRoutes.HOME,
     element: <div>ggd</div>,
     errorElement: <ErrorPage />
   },
   {
-    path: '/tasks',
+    path: AppRoutes.TASKS,
     element: <TodoList />,
     errorElement: <ErrorPage />
   }
