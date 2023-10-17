@@ -14,9 +14,7 @@ const apiCreator = (): ApiRerurnType => {
     baseURL: import.meta.env.VITE_API_URL
   });
 
-  instanceJusang.interceptors.response.use(function (error) {
-    return error;
-  });
+  instanceJusang.interceptors.response.use(undefined, errorIntercept);
 
   const apis = {
     auth: AuthApi(instanceJusang),
