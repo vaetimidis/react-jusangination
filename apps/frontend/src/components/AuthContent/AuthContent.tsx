@@ -1,12 +1,13 @@
 import './style.scss';
-
 import type { FC } from 'react';
 
-import axios from 'axios';
+import { notification } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-interface IFormProps {
+import { api } from '#/utils/api';
+
+export interface IFormProps {
   username: string;
   password: string;
 }
@@ -15,9 +16,19 @@ interface IProps {
   handleOpen: () => void;
 }
 
-interface IAuthResponse {
+export interface IAuthResponse {
   statusText: string;
 }
+
+const openNotification = () => {
+  notification.open({
+    message: 'Успешно!',
+    description: 'Вы были успешно зарегестрированы',
+    onClick: () => {
+      console.log('Notification Clicked!');
+    }
+  });
+};
 
 const SigninSchema = Yup.object().shape({
   username: Yup.string().min(2, 'Too short username').required('required'),
@@ -28,13 +39,12 @@ export const AuthContent: FC<IProps> = (props) => {
   const { handleOpen } = props;
 
   const submitForm = async (values: IFormProps) => {
-    const response = await axios.post<IAuthResponse>(
-      `${import.meta.env.VITE_API_URL}/sign-up`,
-      values
-    );
+    try {
+      await api.auth.signIn(values);
 
-    if (response.statusText === 'OK') {
-      alert('successful');
+      openNotification();
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -52,7 +62,7 @@ export const AuthContent: FC<IProps> = (props) => {
           <div className="auth-wrapper__inputs">
             <div className="auth-wrapper__input">
               <label htmlFor="username">USERNAME</label>
-              <Field className="username" id="username" name="username" />
+              <Field className="auth-username" id="username" name="username" />
               {errors.username ? <div className="input-error">{errors.username}</div> : null}
             </div>
 

@@ -1,9 +1,9 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
-import axios from 'axios';
+import type { ITask } from '#/pages/TodoList/TodoList';
 
-import type { ITask } from '../TodoList';
+import { api } from '#/utils/api';
 
 interface ITaskState {
   addTask: (task: ITask) => void;
@@ -16,13 +16,13 @@ export const TaskFormCreate = ({ addTask }: ITaskState) => {
   };
 
   const handleNewTask = async (text: string) => {
-    const response = await axios.post<ITask>(`${import.meta.env.VITE_API_URL}/task`, {
-      text
-    });
-
-    addTask(response.data);
-
-    setText('');
+    try {
+      const { data } = await api.tasks.createTask(text);
+      addTask(data);
+      setText('');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
