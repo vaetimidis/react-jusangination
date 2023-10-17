@@ -11,14 +11,6 @@ export interface ITask {
   isDone: boolean;
 }
 
-export interface IResp {
-  tasks: ITask[];
-}
-
-const getTasks = async (): Promise<ITask[]> => {
-  return api.tasks.allTasks();
-};
-
 export const TodoList = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
 
@@ -38,8 +30,8 @@ export const TodoList = () => {
 
   useEffect(() => {
     (async () => {
-      const tasks = await getTasks();
-      setTasks(tasks);
+      const { data } = await api.tasks.allTasks();
+      setTasks(data.tasks);
     })();
   }, []);
 

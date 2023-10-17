@@ -16,11 +16,13 @@ export const TaskFormCreate = ({ addTask }: ITaskState) => {
   };
 
   const handleNewTask = async (text: string) => {
-    const data = await api.tasks.createTask(text);
-
-    addTask(data);
-
-    setText('');
+    try {
+      const { data } = await api.tasks.createTask(text);
+      addTask(data);
+      setText('');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

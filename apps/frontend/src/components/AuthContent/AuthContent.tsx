@@ -1,8 +1,7 @@
 import './style.scss';
-
 import type { FC } from 'react';
 
-import axios from 'axios';
+import { notification } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -21,6 +20,16 @@ export interface IAuthResponse {
   statusText: string;
 }
 
+const openNotification = () => {
+  notification.open({
+    message: 'Успешно!',
+    description: 'Вы были успешно зарегестрированы',
+    onClick: () => {
+      console.log('Notification Clicked!');
+    }
+  });
+};
+
 const SigninSchema = Yup.object().shape({
   username: Yup.string().min(2, 'Too short username').required('required'),
   password: Yup.string().min(2, 'Too short password').required('required')
@@ -30,10 +39,12 @@ export const AuthContent: FC<IProps> = (props) => {
   const { handleOpen } = props;
 
   const submitForm = async (values: IFormProps) => {
-    const response = await api.auth.signIn(values);
+    try {
+      await api.auth.signIn(values);
 
-    if (response.statusText === 'OK') {
-      alert('successful');
+      openNotification();
+    } catch (error) {
+      console.log(error);
     }
   };
 
