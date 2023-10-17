@@ -6,7 +6,9 @@ import axios from 'axios';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-interface IFormProps {
+import { api } from '#/utils/api';
+
+export interface IFormProps {
   username: string;
   password: string;
 }
@@ -15,7 +17,7 @@ interface IProps {
   handleOpen: () => void;
 }
 
-interface IAuthResponse {
+export interface IAuthResponse {
   statusText: string;
 }
 
@@ -28,10 +30,7 @@ export const AuthContent: FC<IProps> = (props) => {
   const { handleOpen } = props;
 
   const submitForm = async (values: IFormProps) => {
-    const response = await axios.post<IAuthResponse>(
-      `${import.meta.env.VITE_API_URL}/sign-up`,
-      values
-    );
+    const response = await api.auth.signIn(values);
 
     if (response.statusText === 'OK') {
       alert('successful');
@@ -52,7 +51,7 @@ export const AuthContent: FC<IProps> = (props) => {
           <div className="auth-wrapper__inputs">
             <div className="auth-wrapper__input">
               <label htmlFor="username">USERNAME</label>
-              <Field className="username" id="username" name="username" />
+              <Field className="auth-username" id="username" name="username" />
               {errors.username ? <div className="input-error">{errors.username}</div> : null}
             </div>
 
