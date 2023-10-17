@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { AuthApi } from './auth';
-import { errorIntercept } from './interceptors/error-intercept';
+import { errorIntercept } from './interceptors/error-interceptors';
 import { TasksApi } from './tasks';
 
 interface ApiRerurnType {
@@ -14,7 +14,9 @@ const apiCreator = (): ApiRerurnType => {
     baseURL: import.meta.env.VITE_API_URL
   });
 
-  //   instanceJusang.interceptors.response.use(errorIntercept);
+  instanceJusang.interceptors.response.use(function (error) {
+    return error;
+  });
 
   const apis = {
     auth: AuthApi(instanceJusang),
