@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { TaskFormCreate } from '#/components/TodoList/TaskFormCreate/TaskFormCreate';
 import { api } from '#/utils/api';
+import { deepCopy } from '#/utils/helpers/deep-copy';
 
 export interface ITask {
   id: string;
@@ -15,7 +16,7 @@ export const TodoList = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
 
   const addTask = (task: ITask) => {
-    setTasks([...tasks, task]);
+    setTasks(deepCopy(tasks).concat(task));
   };
 
   const renderTaskItems = (isDone: boolean) => {
