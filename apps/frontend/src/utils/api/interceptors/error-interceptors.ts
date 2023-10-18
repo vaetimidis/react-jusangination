@@ -1,6 +1,5 @@
 import { notification } from 'antd';
 
-import './notifications.scss';
 import type { AxiosError } from 'axios';
 
 export const errorIntercept = (error: AxiosError) => {
