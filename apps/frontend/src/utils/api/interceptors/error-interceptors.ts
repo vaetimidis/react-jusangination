@@ -6,9 +6,9 @@ export const errorIntercept = (error: AxiosError) => {
   let text = '';
 
   if (error.response) {
-    text = error.response.statusText;
+    text = (error.response.data as { message: string })?.message;
   } else if (error.request) {
-    text = error.request;
+    text = (error.request.data as { message: string })?.message;
   } else if (error.message) {
     text = error.message;
   }
