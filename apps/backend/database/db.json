@@ -1,10 +1,1 @@
-{
-  "users": [
-    { "id": "07fae107-c3e4-4921-908a-370b32bd9588", "username": "123", "password": "123" },
-    { "id": "498f53bf-0774-4327-a8d2-6455493c9a82", "username": "ggd", "password": "ggd" }
-  ],
-  "tasks": [
-    { "id": "d98097f2-7127-46d7-9f15-cfba881ce202", "text": "cry", "isDone": false },
-    { "id": "d98097f2-7127-46d7-9f15-cfba881ce202", "text": "cry", "isDone": false }
-  ]
-}
+{"users":[{"id":"07fae107-c3e4-4921-908a-370b32bd9588","username":"123","password":"123"},{"id":"498f53bf-0774-4327-a8d2-6455493c9a82","username":"ggd","password":"ggd"}],"tasks":[{"id":"42e60c2a-12c5-42e6-8326-09e74fe18b0e","text":"йцу","isDone":false},{"id":"24ad288f-1e40-4fca-b524-3723feea3207","text":"2423423","isDone":false},{"id":"d2fed472-070f-4ee0-a204-9a85e0f1eb47","text":"qwe","isDone":false}]}

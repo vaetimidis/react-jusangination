@@ -50,7 +50,7 @@ taskRouter.put('/task/:id', async (req: Request, res: Response): Promise<void> =
 
   const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf-8')) as IDatabase;
 
-  const foundedTask = db.tasks.find(({ id }: ITask) => id === id);
+  const foundedTask = db.tasks.find((task: ITask) => task.id === id);
 
   if (!foundedTask) {
     res.status(400).json({ message: "Task doesn't exists" });
