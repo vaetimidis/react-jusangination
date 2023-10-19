@@ -19,11 +19,25 @@ export const TodoList = () => {
     setTasks(deepCopy(tasks).concat(task));
   };
 
+  const updateTask = async (id: string, isDone: Partial<ITask>) => {
+    const { data } = await api.tasks.updateTask(id, isDone);
+
+    const currentTasks = [...tasks];
+    const updatedTask = currentTasks.find((m) => m.id === data.id);
+    if (updatedTask) updatedTask.isDone = data.isDone;
+
+    setTasks(currentTasks);
+  };
+
   const renderTaskItems = (isDone: boolean) => {
     return tasks
       .filter((task) => task.isDone === isDone)
       .map((task) => (
-        <li key={task.id} className={`tasks__item ${isDone ? 'completed' : 'uncompleted'}`}>
+        <li
+          key={task.id}
+          id={task.id}
+          onClick={() => updateTask(task.id, { isDone: !task.isDone })}
+          className={`tasks__item ${isDone ? 'completed' : 'uncompleted'}`}>
           {task.text}
         </li>
       ));
