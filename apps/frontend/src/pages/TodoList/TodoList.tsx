@@ -19,14 +19,16 @@ export const TodoList = () => {
     setTasks(deepCopy(tasks).concat(task));
   };
 
-  const updateTask = async (id: string, isDone: Partial<ITask>) => {
-    const { data } = await api.tasks.updateTask(id, isDone);
+  const updateTask = async (id: string, updatedTask: Partial<ITask>) => {
+    try {
+      const { data } = await api.tasks.updateTask(id, updatedTask);
 
-    const currentTasks = [...tasks];
-    const updatedTask = currentTasks.find((m) => m.id === data.id);
-    if (updatedTask) updatedTask.isDone = data.isDone;
-
-    setTasks(currentTasks);
+      setTasks((prev) =>
+        prev.map((task) => (task.id === data.id ? { ...task, isDone: data.isDone } : task))
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const renderTaskItems = (isDone: boolean) => {
