@@ -19,32 +19,6 @@ export const TodoList = () => {
     setTasks(deepCopy(tasks).concat(task));
   };
 
-  const updateTask = async (id: string, updatedTask: Partial<ITask>) => {
-    try {
-      const { data } = await api.tasks.updateTask(id, updatedTask);
-
-      setTasks((prev) =>
-        prev.map((task) => (task.id === data.id ? { ...task, isDone: data.isDone } : task))
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const renderTaskItems = (isDone: boolean) => {
-    return tasks
-      .filter((task) => task.isDone === isDone)
-      .map((task) => (
-        <li
-          key={task.id}
-          id={task.id}
-          onClick={() => updateTask(task.id, { isDone: !task.isDone })}
-          className={`tasks__item ${isDone ? 'completed' : 'uncompleted'}`}>
-          {task.text}
-        </li>
-      ));
-  };
-
   useEffect(() => {
     (async () => {
       const { data } = await api.tasks.allTasks();
@@ -55,14 +29,7 @@ export const TodoList = () => {
   return (
     <div className="task-wrapper">
       <TaskFormCreate addTask={addTask} />
-      <div className="task-wrapper__section">
-        <div className="tasks--uncompleted">
-          <ul className="tasks__list">{renderTaskItems(false)}</ul>
-        </div>
-        <div className="tasks--completed">
-          <ul className="tasks__list">{renderTaskItems(true)}</ul>
-        </div>
-      </div>
+      <TodoList tasks={tasks} setTasks={setTasks} />
     </div>
   );
 };
