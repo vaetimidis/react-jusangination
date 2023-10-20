@@ -5,6 +5,7 @@ import { notification } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
+import { useClickOutside } from '#/hooks/use-clise-outside';
 import { api } from '#/utils/api';
 
 export interface IFormProps {
@@ -39,19 +40,7 @@ export const AuthContent: FC<IProps> = (props) => {
   const { handleOpen } = props;
   const modalRef = useRef<HTMLFormElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: Event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        handleOpen();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [handleOpen]);
+  useClickOutside(modalRef, handleOpen);
 
   const submitForm = async (values: IFormProps) => {
     try {
