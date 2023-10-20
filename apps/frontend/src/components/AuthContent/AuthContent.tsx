@@ -1,10 +1,11 @@
 import './style.scss';
-import type { FC } from 'react';
+import { useRef, type FC, useEffect } from 'react';
 
 import { notification } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
+import { useClickOutside } from '#/hooks/use-clise-outside';
 import { api } from '#/utils/api';
 
 export interface IFormProps {
@@ -37,6 +38,9 @@ const SigninSchema = Yup.object().shape({
 
 export const AuthContent: FC<IProps> = (props) => {
   const { handleOpen } = props;
+  const modalRef = useRef<HTMLFormElement>(null);
+
+  useClickOutside(modalRef, handleOpen);
 
   const submitForm = async (values: IFormProps) => {
     try {
@@ -54,7 +58,7 @@ export const AuthContent: FC<IProps> = (props) => {
       validationSchema={SigninSchema}
       onSubmit={submitForm}>
       {({ errors }) => (
-        <Form className="auth-wrapper">
+        <Form ref={modalRef} className="auth-wrapper">
           <button className="close-modal" onClick={handleOpen}>
             X
           </button>
