@@ -1,5 +1,5 @@
 import './style.scss';
-import type { FC } from 'react';
+import { useRef, type FC, useEffect } from 'react';
 
 import { notification } from 'antd';
 import { Field, Form, Formik } from 'formik';
@@ -37,6 +37,21 @@ const SigninSchema = Yup.object().shape({
 
 export const AuthContent: FC<IProps> = (props) => {
   const { handleOpen } = props;
+  const modalRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: Event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        handleOpen();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [handleOpen]);
 
   const submitForm = async (values: IFormProps) => {
     try {
@@ -54,7 +69,7 @@ export const AuthContent: FC<IProps> = (props) => {
       validationSchema={SigninSchema}
       onSubmit={submitForm}>
       {({ errors }) => (
-        <Form className="auth-wrapper">
+        <Form ref={modalRef} className="auth-wrapper">
           <button className="close-modal" onClick={handleOpen}>
             X
           </button>
